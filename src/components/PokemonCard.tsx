@@ -1,6 +1,15 @@
-import { Text, View, StyleSheet, Image, ActivityIndicator } from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import { useQuery } from '@tanstack/react-query';
 import { fetchFn, Pokemon } from '../utils/api';
+import { useNavigation } from '@react-navigation/native';
+import { MainStackScreenProps } from '../navigators/types';
 
 interface PokemonCardProps {
   url: string;
@@ -11,11 +20,16 @@ export function PokemonCard({ url, name }: PokemonCardProps) {
   const { isLoading, error, data } = useQuery<Pokemon>(['pokemon', name], () =>
     fetchFn(url)
   );
+  const navigation =
+    useNavigation<MainStackScreenProps<'Home'>['navigation']>();
 
   if (!data || error) return null;
   if (isLoading) return <ActivityIndicator />;
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => navigation.navigate('Detail', { name })}
+    >
       <Image
         source={{
           uri: data.sprites.other['official-artwork'].front_default,
@@ -23,7 +37,7 @@ export function PokemonCard({ url, name }: PokemonCardProps) {
         style={styles.image}
       />
       <Text style={styles.name}>{data.name}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
