@@ -1,6 +1,6 @@
 export interface Pokemon {
   name: string;
-  order: number;
+  id: number;
   sprites: {
     other: {
       'official-artwork': {
@@ -13,7 +13,7 @@ export interface Pokemon {
     type: {
       name: string;
     };
-  };
+  }[];
 }
 
 export interface AllPokemon {
