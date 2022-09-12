@@ -29,3 +29,8 @@ export const getTypeColor = (type: string) => {
 export const formatNumber = (num: number) => {
   return num.toString().padStart(3, '0');
 };
+
+// removes all scape characters from string
+export const removeEscapeCharacters = (str: string) => {
+  return str.replace(/[\n\r\t\f]/g, ' ');
+};

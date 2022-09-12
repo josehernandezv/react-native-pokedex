@@ -44,7 +44,7 @@ export function PokemonCard({ url, name }: PokemonCardProps) {
       p="4"
       backgroundColor={getTypeColor(data.types[0].type.name) + '.500'}
       borderRadius={10}
-      onPress={() => navigation.navigate('Detail', { name })}
+      onPress={() => navigation.navigate('Detail', { name, url })}
     >
       <Center>
         <AspectRatio ratio={1} width="80%">
