@@ -10,6 +10,7 @@ import {
   Text,
   HStack,
   Stack,
+  Skeleton,
   Pressable,
   Center,
   AspectRatio,
@@ -28,8 +29,14 @@ export function PokemonCard({ url, name }: PokemonCardProps) {
   const navigation =
     useNavigation<MainStackScreenProps<'Home'>['navigation']>();
 
+  if (isLoading)
+    return (
+      <Stack flex={1} space={2} borderRadius={10} m="1.5" p="4">
+        <Skeleton h="32" />
+        <Skeleton.Text px="4" />
+      </Stack>
+    );
   if (!data || error) return null;
-  if (isLoading) return <ActivityIndicator />;
   return (
     <Pressable
       flex={1}
