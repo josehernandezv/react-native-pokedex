@@ -1,6 +1,6 @@
 import { ActivityIndicator } from 'react-native';
 import { useQuery } from '@tanstack/react-query';
-import { fetchFn, Pokemon } from '../utils/api';
+import { fetchFn, fetchPokemon, Pokemon } from '../utils/api';
 import { useNavigation } from '@react-navigation/native';
 import { MainStackScreenProps } from '../navigators/types';
 import {
@@ -18,13 +18,12 @@ import {
 import { formatNumber, getTypeColor } from '../utils/helper';
 
 interface PokemonCardProps {
-  url: string;
   name: string;
 }
 
-export function PokemonCard({ url, name }: PokemonCardProps) {
+export function PokemonCard({ name }: PokemonCardProps) {
   const { isLoading, error, data } = useQuery<Pokemon>(['pokemon', name], () =>
-    fetchFn(url)
+    fetchPokemon(name)
   );
   const navigation =
     useNavigation<MainStackScreenProps<'Home'>['navigation']>();
@@ -44,7 +43,7 @@ export function PokemonCard({ url, name }: PokemonCardProps) {
       p="4"
       backgroundColor={getTypeColor(data.types[0].type.name) + '.500'}
       borderRadius={10}
-      onPress={() => navigation.navigate('Detail', { name, url })}
+      onPress={() => navigation.navigate('Detail', { name })}
     >
       <Center>
         <AspectRatio ratio={1} width="80%">

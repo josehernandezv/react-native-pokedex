@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { MainStackScreenProps } from '../navigators/types';
-import { fetchFn, Pokemon, Species } from '../utils/api';
+import { fetchFn, fetchPokemon, Pokemon, Species } from '../utils/api';
 import {
   AspectRatio,
   Image,
@@ -18,8 +18,10 @@ import {
 } from '../utils/helper';
 
 export function Detail({ route }: MainStackScreenProps<'Detail'>) {
-  const { name, url } = route.params;
-  const { data } = useQuery<Pokemon>(['pokemon', name], () => fetchFn(url));
+  const { name } = route.params;
+  const { data } = useQuery<Pokemon>(['pokemon', name], () =>
+    fetchPokemon(name)
+  );
   const { isLoading: isSpeciesLoading, data: species } = useQuery<Species>(
     ['species', name],
     () => fetchFn(data?.species.url || ''),

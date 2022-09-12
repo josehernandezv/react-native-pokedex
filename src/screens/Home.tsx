@@ -27,7 +27,7 @@ export function Home() {
     <FlatList
       data={data.pages.flatMap((page) => page.results)}
       keyExtractor={(item) => item.name}
-      renderItem={({ item }) => <PokemonCard url={item.url} name={item.name} />}
+      renderItem={({ item }) => <PokemonCard name={item.name} />}
       onEndReached={loadMore}
       numColumns={2}
       contentInsetAdjustmentBehavior="automatic"
